@@ -1,21 +1,21 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
+
+import io.netty.channel.ChannelHandlerAdapter;
+import io.netty.channel.ChannelHandlerContext;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
-import com.xiaokun.netty.utils.GzipUtils;
-
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
+import com.fengkun.angel.netty.utils.GzipUtils;
 
 /**
- * <p>Title: ServerHandler.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ13ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
+ * 
+* <p>Title: ServerHandler.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
  */
 public class ServerHandler extends ChannelHandlerAdapter {
 

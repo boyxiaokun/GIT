@@ -1,4 +1,4 @@
-package com.xiaokun.netty.ende2;
+package com.fengkun.angel.netty.ende2;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;

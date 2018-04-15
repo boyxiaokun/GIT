@@ -1,4 +1,4 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
 
 import io.netty.handler.codec.marshalling.DefaultMarshallerProvider;
 import io.netty.handler.codec.marshalling.DefaultUnmarshallerProvider;
@@ -12,34 +12,34 @@ import org.jboss.marshalling.Marshalling;
 import org.jboss.marshalling.MarshallingConfiguration;
 
 /**
- * <p>Title: MarshallingCodeCFactory.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ15ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
+ * 
+* <p>Title: MarshallingCodeCFactory.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
  */
 public final class MarshallingCodeCFactory {
 
-	   /**
-     * ´´½¨Jboss Marshalling½âÂëÆ÷MarshallingDecoder
+	 /**
+     * åˆ›å»ºJboss Marshallingè§£ç å™¨MarshallingDecoder
      * @return MarshallingDecoder
      */
     public static MarshallingDecoder buildMarshallingDecoder() {
-    	//Ê×ÏÈÍ¨¹ıMarshalling¹¤¾ßÀàµÄ¾«Í¨·½·¨»ñÈ¡MarshallingÊµÀı¶ÔÏó ²ÎÊıserial±êÊ¶´´½¨µÄÊÇjavaĞòÁĞ»¯¹¤³§¶ÔÏó¡£
+    	//é¦–å…ˆé€šè¿‡Marshallingå·¥å…·ç±»çš„ç²¾é€šæ–¹æ³•è·å–Marshallingå®ä¾‹å¯¹è±¡ å‚æ•°serialæ ‡è¯†åˆ›å»ºçš„æ˜¯javaåºåˆ—åŒ–å·¥å‚å¯¹è±¡ã€‚
 		final MarshallerFactory marshallerFactory = Marshalling.getProvidedMarshallerFactory("serial");
-		//´´½¨ÁËMarshallingConfiguration¶ÔÏó£¬ÅäÖÃÁË°æ±¾ºÅÎª5 
+		//åˆ›å»ºäº†MarshallingConfigurationå¯¹è±¡ï¼Œé…ç½®äº†ç‰ˆæœ¬å·ä¸º5 
 		final MarshallingConfiguration configuration = new MarshallingConfiguration();
 		configuration.setVersion(5);
-		//¸ù¾İmarshallerFactoryºÍconfiguration´´½¨provider
+		//æ ¹æ®marshallerFactoryå’Œconfigurationåˆ›å»ºprovider
 		UnmarshallerProvider provider = new DefaultUnmarshallerProvider(marshallerFactory, configuration);
-		//¹¹½¨NettyµÄMarshallingDecoder¶ÔÏó£¬Á©¸ö²ÎÊı·Ö±ğÎªproviderºÍµ¥¸öÏûÏ¢ĞòÁĞ»¯ºóµÄ×î´ó³¤¶È
+		//æ„å»ºNettyçš„MarshallingDecoderå¯¹è±¡ï¼Œä¿©ä¸ªå‚æ•°åˆ†åˆ«ä¸ºproviderå’Œå•ä¸ªæ¶ˆæ¯åºåˆ—åŒ–åçš„æœ€å¤§é•¿åº¦
 		MarshallingDecoder decoder = new MarshallingDecoder(provider, 1024 * 1024 * 1);
 		return decoder;
-    }	
-    
+    }
+
     /**
-     * ´´½¨Jboss Marshalling±àÂëÆ÷MarshallingEncoder
+     * åˆ›å»ºJboss Marshallingç¼–ç å™¨MarshallingEncoder
      * @return MarshallingEncoder
      */
     public static MarshallingEncoder buildMarshallingEncoder() {
@@ -47,7 +47,7 @@ public final class MarshallingCodeCFactory {
 		final MarshallingConfiguration configuration = new MarshallingConfiguration();
 		configuration.setVersion(5);
 		MarshallerProvider provider = new DefaultMarshallerProvider(marshallerFactory, configuration);
-		//¹¹½¨NettyµÄMarshallingEncoder¶ÔÏó£¬MarshallingEncoderÓÃÓÚÊµÏÖĞòÁĞ»¯½Ó¿ÚµÄPOJO¶ÔÏóĞòÁĞ»¯Îª¶ş½øÖÆÊı×é
+		//æ„å»ºNettyçš„MarshallingEncoderå¯¹è±¡ï¼ŒMarshallingEncoderç”¨äºå®ç°åºåˆ—åŒ–æ¥å£çš„POJOå¯¹è±¡åºåˆ—åŒ–ä¸ºäºŒè¿›åˆ¶æ•°ç»„
 		MarshallingEncoder encoder = new MarshallingEncoder(provider);
 		return encoder;
     }

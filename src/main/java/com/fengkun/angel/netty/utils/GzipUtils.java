@@ -1,4 +1,4 @@
-package com.xiaokun.netty.utils;
+package com.fengkun.angel.netty.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

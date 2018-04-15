@@ -1,15 +1,15 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
 
 import java.io.Serializable;
 
 /**
- * <p>Title: ResponseBean.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ15ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
- * ·şÎñ¶ËÏìÓ¦Êı¾İ
+ * 
+* <p>Title: ResponseBean.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
+* æœåŠ¡ç«¯å“åº”æ•°æ®
  */
 public class ResponseBean implements Serializable {
 

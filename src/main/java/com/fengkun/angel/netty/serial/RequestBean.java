@@ -1,15 +1,15 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
 
 import java.io.Serializable;
 
 /**
- * <p>Title: RequestBean.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ15ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
- * ¿Í»§¶Ë´«ÊäÊı¾İ
+ * 
+* <p>Title: RequestBean.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
+* å®¢æˆ·ç«¯è¯·æ±‚æ•°æ®
  */
 public class RequestBean implements Serializable {
 

@@ -1,4 +1,4 @@
-package com.xiaokun.netty.udp;
+package com.fengkun.angel.netty.udp;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

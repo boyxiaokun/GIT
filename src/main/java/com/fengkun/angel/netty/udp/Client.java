@@ -1,4 +1,4 @@
-package com.xiaokun.netty.udp;
+package com.fengkun.angel.netty.udp;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;

@@ -1,4 +1,4 @@
-package com.xiaokun.netty.helloworld; 
+package com.fengkun.angel.netty.helloworld;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
@@ -9,58 +9,37 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-/**
- * <p>Title: Client.java<£Øp>
- * <p>Description: <£Øp>
- * @author boyxiaokun
- * @date 2018ƒÍ4‘¬13»’
- * @version 1.0
- * ¿‡Àµ√˜
- */
 public class Client {
-	
-	public static void main(String[] args) throws Exception {
+
+	public static void main(String[] args) throws Exception{
 		
 		EventLoopGroup group = new NioEventLoopGroup();
-		Bootstrap bootstrap = new Bootstrap();
-		bootstrap.group(group)
-				 .channel(NioSocketChannel.class)
-				 .handler(new ChannelInitializer<SocketChannel>() {
-
-					@Override
-					protected void initChannel(SocketChannel sc)
-							throws Exception {
-						sc.pipeline().addLast(new ClientHandler());
-					}
-				});
+		Bootstrap b = new Bootstrap();
+		b.group(group)
+		.channel(NioSocketChannel.class)
+		.handler(new ChannelInitializer<SocketChannel>() {
+			@Override
+			protected void initChannel(SocketChannel sc) throws Exception {
+				sc.pipeline().addLast(new ClientHandler());
+			}
+		});
 		
-		ChannelFuture future = bootstrap.connect("127.0.0.1",7654).sync();
+		ChannelFuture cf1 = b.connect("127.0.0.1", 8765).sync();
+		//ChannelFuture cf2 = b.connect("127.0.0.1", 8764).sync();
+		//ÂèëÈÄÅÊ∂àÊÅØ
+		Thread.sleep(1000);
+		cf1.channel().writeAndFlush(Unpooled.copiedBuffer("777".getBytes()));
+		cf1.channel().writeAndFlush(Unpooled.copiedBuffer("666".getBytes()));
+		//cf2.channel().writeAndFlush(Unpooled.copiedBuffer("888".getBytes()));
+		Thread.sleep(2000);
+		cf1.channel().writeAndFlush(Unpooled.copiedBuffer("888".getBytes()));
+		//cf2.channel().writeAndFlush(Unpooled.copiedBuffer("666".getBytes()));
 		
-		future.channel().writeAndFlush(Unpooled.copiedBuffer("333".getBytes()));
-		future.channel().closeFuture().sync();
-		
+		cf1.channel().closeFuture().sync();
+		//cf2.channel().closeFuture().sync();
 		group.shutdownGracefully();
+		
+		
+		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

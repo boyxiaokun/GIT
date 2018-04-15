@@ -1,4 +1,4 @@
-package com.xiaokun.netty.ende1;
+package com.fengkun.angel.netty.ende1;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;

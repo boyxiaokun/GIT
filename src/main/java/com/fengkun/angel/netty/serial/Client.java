@@ -1,13 +1,6 @@
-package com.xiaokun.netty.serial; 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import com.xiaokun.netty.utils.GzipUtils;
+package com.fengkun.angel.netty.serial; 
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -15,13 +8,19 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.io.File;
+import java.io.FileInputStream;
+
+import com.fengkun.angel.netty.utils.GzipUtils;
+
 /**
- * <p>Title: Client.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ13ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
+ * 
+* <p>Title: Client.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
+* ç¼–è§£ç é—®é¢˜
  */
 public class Client {
 	

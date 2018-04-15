@@ -1,4 +1,4 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,56 +8,42 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
- * <p>Title: Server.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ13ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
- * nettyµÄ±à½âÂëÎÊÌâ
- * Ê¹ÓÃjboss marshalling
+ * 
+* <p>Title: Server.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
  */
 public class Server {
 
 	public static void main(String[] args) throws Exception {
-		//1 µÚÒ»¸öÏß³Ì×é ÓÃÀ´½ÓÊÕClient¶ËÁ¬½Ó
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		//2µÚ¶ş¸öÏß³Ì×é ÓÃÀ´½øĞĞÍøÂçÍ¨ĞÅµÄ£¨ÍøÂç¶ÁĞ´µÄ£©
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+		EventLoopGroup workGroup = new NioEventLoopGroup();
 		
-		//3´´½¨Ò»¸ö¸¨ÖúÀàBootstrap£¬ ¶ÔServer½øĞĞÅäÖÃ
-		ServerBootstrap bootstrap = new ServerBootstrap();
-		//°ÑÁ½¸öÏß³Ì×é¼ÓÈë
-		bootstrap.group(bossGroup, workerGroup)
-				 //ÎÒÒªÖ¸¶¨Ê¹ÓÃNioServerSocketChannelÕâÖÖÀàĞÍµÄÍ¨µÀ£¨NIOµÄÄ£Ê½£©
-				 .channel(NioServerSocketChannel.class)
-				 .option(ChannelOption.SO_BACKLOG, 1024)//ÉèÖÃtcp»º³åÇø
-				 .option(ChannelOption.SO_SNDBUF, 1024*1024)//ÉèÖÃ·¢ËÍ»º³å´óĞ¡
-				 .option(ChannelOption.SO_RCVBUF, 1024*1024)//ÉèÖÃ½ÓÊÕ»º³å´óĞ¡
-				 .option(ChannelOption.SO_KEEPALIVE, true)//±£³ÖÁ¬½Ó
-				 //Ò»¶¨ÒªÊ¹ÓÃ childHandler È¥°ó¶¨¾ßÌåµÄ ÊÂ¼ş´¦ÀíÆ÷
-				 .childHandler(new ChannelInitializer<SocketChannel>() {
-
-					@Override
-					protected void initChannel(SocketChannel sc) throws Exception {
-						sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
-						sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
-						//ÉèÖÃ¾ßÌåÊı¾İ½ÓÊÕ·½·¨µÄ´¦Àí
-						sc.pipeline().addLast(new ServerHandler());
-					}
-					 
-				});
-		//°ó¶¨Ö¸¶¨µÄ¶Ë¿Ú ½øĞĞ¼àÌı
-		ChannelFuture future = bootstrap.bind(7654).sync();
+		ServerBootstrap b = new ServerBootstrap();
+		b.group(bossGroup, workGroup)
+		 .channel(NioServerSocketChannel.class)
+		 .option(ChannelOption.SO_BACKLOG, 1024)
+		 //è®¾ç½®æ—¥å¿—
+		 .handler(new LoggingHandler(LogLevel.INFO))
+		 .childHandler(new ChannelInitializer<SocketChannel>() {
+			protected void initChannel(SocketChannel sc) throws Exception {
+				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
+				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
+				sc.pipeline().addLast(new ServerHandler());
+			}
+		});
 		
-		//×èÈû
-		future.channel().closeFuture().sync();
+		ChannelFuture cf = b.bind(7654).sync();
 		
+		cf.channel().closeFuture().sync();
 		bossGroup.shutdownGracefully();
-		workerGroup.shutdownGracefully();
-		
+		workGroup.shutdownGracefully();
 	}
 }
  

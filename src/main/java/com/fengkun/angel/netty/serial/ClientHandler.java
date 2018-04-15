@@ -1,16 +1,16 @@
-package com.xiaokun.netty.serial; 
+package com.fengkun.angel.netty.serial; 
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
 
 /**
- * <p>Title: ClientHandler.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ13ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
+ * 
+* <p>Title: ClientHandler.java<ï¼p>
+* <p>Description: <ï¼p>
+* @author boyxiaokun
+* @date 2018å¹´4æœˆ15æ—¥
+* @version 1.0
  */
 public class ClientHandler extends ChannelHandlerAdapter {
 

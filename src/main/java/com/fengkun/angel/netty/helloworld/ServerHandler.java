@@ -1,55 +1,44 @@
-package com.xiaokun.netty.helloworld; 
+package com.fengkun.angel.netty.helloworld;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-/**
- * <p>Title: ServerHandler.java<£¯p>
- * <p>Description: <£¯p>
- * @author boyxiaokun
- * @date 2018Äê4ÔÂ13ÈÕ
- * @version 1.0
- * ÀàËµÃ÷
- */
 public class ServerHandler extends ChannelHandlerAdapter {
+
+
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		System.out.println("server channel active... ");
+	}
+
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
-		
-		ByteBuf buf = (ByteBuf)msg;
-		byte[] data = new byte[buf.readableBytes()];
-		buf.readBytes(data);
-		String request = new String(data, "utf-8");
-		System.out.println("Server :"+ request);
-		//ÏìÓ¦¿Í»§¶Ë
-		String response = "ÏìÓ¦¿Í»§¶Ë";
-		ctx.writeAndFlush(Unpooled.copiedBuffer("666".getBytes()));
+			ByteBuf buf = (ByteBuf) msg;
+			byte[] req = new byte[buf.readableBytes()];
+			buf.readBytes(req);
+			String body = new String(req, "utf-8");
+			System.out.println("Server :" + body );
+			String response = "è¿›è¡Œè¿”å›ç»™å®¢æˆ·ç«¯çš„å“åº”ï¼š" + body ;
+			ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
+			//.addListener(ChannelFutureListener.CLOSE);
 	}
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+	public void channelReadComplete(ChannelHandlerContext ctx)
 			throws Exception {
-		cause.printStackTrace();
+		System.out.println("è¯»å®Œäº†");
+		ctx.flush();
+	}
+
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable t)
+			throws Exception {
 		ctx.close();
 	}
 
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
