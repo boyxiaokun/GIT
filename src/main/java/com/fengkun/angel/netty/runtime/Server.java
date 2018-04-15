@@ -1,4 +1,4 @@
-package com.fengkun.angel.netty.serial; 
+package com.fengkun.angel.netty.runtime;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,24 +10,25 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
 /**
- * 
+ * 网络通信
 * <p>Title: Server.java<／p>
 * <p>Description: <／p>
 * @author boyxiaokun
 * @date 2018年4月15日
 * @version 1.0
-* 编解码
  */
 public class Server {
 
-	public static void main(String[] args) throws Exception {
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		EventLoopGroup workGroup = new NioEventLoopGroup();
+	public static void main(String[] args) throws Exception{
+		
+		EventLoopGroup pGroup = new NioEventLoopGroup();
+		EventLoopGroup cGroup = new NioEventLoopGroup();
 		
 		ServerBootstrap b = new ServerBootstrap();
-		b.group(bossGroup, workGroup)
+		b.group(pGroup, cGroup)
 		 .channel(NioServerSocketChannel.class)
 		 .option(ChannelOption.SO_BACKLOG, 1024)
 		 //设置日志
@@ -36,39 +37,16 @@ public class Server {
 			protected void initChannel(SocketChannel sc) throws Exception {
 				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
 				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
+				sc.pipeline().addLast(new ReadTimeoutHandler(5)); 
 				sc.pipeline().addLast(new ServerHandler());
 			}
 		});
 		
-		ChannelFuture cf = b.bind(7654).sync();
+		ChannelFuture cf = b.bind(8765).sync();
 		
 		cf.channel().closeFuture().sync();
-		bossGroup.shutdownGracefully();
-		workGroup.shutdownGracefully();
+		pGroup.shutdownGracefully();
+		cGroup.shutdownGracefully();
+		
 	}
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
